@@ -1,0 +1,9 @@
+{
+  "name": "Stokii",
+  "location": "MtVernon",
+  "phone": "703-123-1234",
+  "courses": [
+    "C#",
+    "Python"
+  ]
+}

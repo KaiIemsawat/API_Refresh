@@ -1,9 +1,13 @@
 package rest_d02;
 
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.*;
@@ -47,7 +51,7 @@ public class CreatingPostRequestBody {
                 .jsonPath().getString("id");
     }
 
-    @Test
+//    @Test
     void testPostUsingPOJO() { // Using POJO Class
         Pojo_Data data = new Pojo_Data();
 
@@ -59,6 +63,18 @@ public class CreatingPostRequestBody {
         data.setCourse(courseArr);
 
         id = given().contentType("application/json").body(data)
+                .when().post("http://localhost:3000/students")
+                .jsonPath().getString("id");
+    }
+
+        @Test
+    void testPostUsingExternalJson() throws FileNotFoundException { // Using External Json file
+        File f = new File("src/test/java/rest_d02/input_body.json");
+        FileReader fr = new FileReader(f);
+        JSONTokener jt = new JSONTokener(fr);
+        JSONObject data = new JSONObject(jt);
+
+        id = given().contentType("application/json").body(data.toString())
                 .when().post("http://localhost:3000/students")
                 .jsonPath().getString("id");
     }
@@ -78,7 +94,7 @@ public class CreatingPostRequestBody {
                 .log().all();
     }
 
-//    @Test(priority = 2)
+    @Test(priority = 2)
     void testDelete() {
         given()
                 .when().delete("http://localhost:3000/students/" + id)
