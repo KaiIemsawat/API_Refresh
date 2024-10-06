@@ -2,7 +2,6 @@ package rest_d02;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
