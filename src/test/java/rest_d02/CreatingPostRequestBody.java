@@ -32,7 +32,7 @@ public class CreatingPostRequestBody {
                 .jsonPath().getString("id");
     }
 
-    @Test
+//    @Test
     void testPostUsingJsonLibrary() { // Using org.json library
         JSONObject data = new JSONObject();
         data.put("name", "Stokii");
@@ -43,6 +43,22 @@ public class CreatingPostRequestBody {
         data.put("courses", courseArr);
 
         id = given().contentType("application/json").body(data.toString())
+                .when().post("http://localhost:3000/students")
+                .jsonPath().getString("id");
+    }
+
+    @Test
+    void testPostUsingPOJO() { // Using POJO Class
+        Pojo_Data data = new Pojo_Data();
+
+        data.setName("Stokii");
+        data.setLocation("MtVernon");
+        data.setPhone("703-123-1234");
+
+        String courseArr[] = {"C#", "Python"};
+        data.setCourse(courseArr);
+
+        id = given().contentType("application/json").body(data)
                 .when().post("http://localhost:3000/students")
                 .jsonPath().getString("id");
     }
@@ -62,7 +78,7 @@ public class CreatingPostRequestBody {
                 .log().all();
     }
 
-    @Test(priority = 2)
+//    @Test(priority = 2)
     void testDelete() {
         given()
                 .when().delete("http://localhost:3000/students/" + id)
