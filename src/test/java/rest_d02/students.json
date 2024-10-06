@@ -1,0 +1,35 @@
+{
+  "students": [
+    {
+      "id": "1",
+      "name": "Zukkii",
+      "location": "Alexandria",
+      "phone": "703-333-3333",
+      "courses": [
+        "Java",
+        "Selenium"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Titann",
+      "location": "Fairfax",
+      "phone": "703-555-5555",
+      "courses": [
+        "Java",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Kinkin",
+      "location": "Groveton",
+      "phone": "703-111-1111",
+      "courses": [
+        "TypeScript",
+        "JavaScript",
+        "Java"
+      ]
+    }
+  ]
+}
