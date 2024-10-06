@@ -11,6 +11,8 @@ import static org.hamcrest.Matchers.*;
 
 public class CreatingPostRequestBody {
 
+    String id;
+
     @Test
     void testPostUsingHashMap() {
         HashMap data = new HashMap<>();
@@ -22,10 +24,17 @@ public class CreatingPostRequestBody {
 
         data.put("courses", courseArr);
 
-        given().contentType("application/json").body(data)
+        id = given().contentType("application/json").body(data)
                 .when().post("http://localhost:3000/students")
+                .jsonPath().getString("id");
+    }
+
+    @Test(dependsOnMethods = {"testPostUsingHashMap"}, priority = 1)
+    void testGetStudent() {
+        given()
+                .when().get("http://localhost:3000/students/" + id)
                 .then()
-                .statusCode(201)
+                .statusCode(200)
                 .header("Content-Type", "application/json")
                 .body("name", equalTo("Stokii"))
                 .body("location", equalTo("MtVernon"))
@@ -35,6 +44,11 @@ public class CreatingPostRequestBody {
                 .log().all();
     }
 
-    @Test
-    void
+    @Test(dependsOnMethods = {"testPostUsingHashMap"}, priority = 2)
+    void testDelete() {
+        given()
+                .when().delete("http://localhost:3000/students/" + id)
+                .then().statusCode(200)
+                .log().all();
+    }
 }
